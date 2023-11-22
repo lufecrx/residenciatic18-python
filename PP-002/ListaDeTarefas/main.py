@@ -107,7 +107,7 @@ class Manager:
         try:
             option = int(option)            
             if option == 1:
-                descricao = input("Descrição:") 
+                descricao = input("Descrição: ").capitalize()
                 for t in self.tasks:
                     if t.description == descricao:
                         self.tasks.remove(t)
