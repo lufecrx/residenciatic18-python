@@ -75,7 +75,7 @@ def validate_price(price):
     if (price <= 0.00):
         raise ValueError("Erro: O preço deve ser maior que zero.")
     
-def saveToFile(filePath):
+def save_to_file(filePath):
     # Salva os produtos da lista para o arquivo
     try:
         with open(filePath, "w") as file:
@@ -84,7 +84,7 @@ def saveToFile(filePath):
     except Exception as e:
         print(f"Erro ao salvar os dados: {str(e)}")
     
-def loadFromFile(filePath):
+def load_from_file(filePath):
     # Carrega os produtos do arquivo para a lista
     try: 
         with open(filePath, "r") as file:

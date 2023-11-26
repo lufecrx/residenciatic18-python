@@ -4,20 +4,20 @@ import manager
 def run():
     # Define o caminho do diretório e o caminho do arquivo
     dir_path = "data/"
-    filePath = os.path.join(dir_path, "products.txt")
+    file_path = os.path.join(dir_path, "products.txt")
     # Verifica se o diretório não existe e criar
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
     # Verifica se o arquivo não existe e criar
-    if not os.path.exists(filePath):
-        open(filePath, "w").close()
+    if not os.path.exists(file_path):
+        open(file_path, "w").close()
     # Carregar os dados
-    manager.loadFromFile(filePath)
+    manager.load_from_file(file_path)
     
     # Execução da aplicação
-    displayMenu()
     choice = -1
     while choice != "0":
+        display_menu()
         print()
         choice = input("Escolha uma opção: ")   
         print()
@@ -38,10 +38,9 @@ def run():
             break
         else:
             print("Opção inválida. Tente novamente.")
-        displayMenu()
-    manager.saveToFile(filePath)
+    manager.save_to_file(file_path)
     
-def displayMenu():
+def display_menu():
     print()
     print("=======SUPERMERCADO======")
     print("1. Inserir um novo produto")
