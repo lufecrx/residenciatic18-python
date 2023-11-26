@@ -5,17 +5,18 @@ product = {
 }
 products = []
 
+# Criar um novo produto
 def create_product():
     try:
         code = input("Código: ")
-        validate_code(code)
+        validate_code(code) # Validar o código inserido
         for product in products:
             if (product["code"] == code):
                 raise ValueError("Erro: Este código já foi atribuido a um produto.")
         name = input("Nome: ")
-        validate_name(name)
+        validate_name(name) # Validar o nome inserido
         price = float(input("Preço: "))
-        validate_price(price)
+        validate_price(price) # Validar o preço inserido
              
         product = {
             "code": code,
@@ -28,6 +29,7 @@ def create_product():
     except Exception as e:
         print(e)
 
+# Remover um produto da lista, se existir
 def delete_product():
     try:
         code = input("Código: ")
@@ -41,6 +43,7 @@ def delete_product():
     except ValueError as e:
         print(e)
 
+# Exibir todos os pedidos cadastrados, se existirem
 def list_products():
     if len(products) == 0:
         print("Nenhum produto cadastrado.")
@@ -48,6 +51,7 @@ def list_products():
     for product in products:
         print(f"[{product['code']}] - {product['name']}: R${product['price'].__format__('.2f')}")
 
+# Procurar um produto pelo código e retornar suas informações de nome e preço
 def search_product():
     code = input("Código: ")
     validate_code(code)
@@ -56,6 +60,7 @@ def search_product():
             print(f"{product['name']}: R${product['price'].__format__('.2f')}")
             return
 
+# Validar códigos inseridos pelo usuário
 def validate_code(code):
     if " " in code:
         raise ValueError("Erro: O código não deve conter espaços.")
@@ -64,19 +69,21 @@ def validate_code(code):
     if (len(code) != 13):
         raise ValueError("Erro: O código deve ter treze números.")
 
+# Validar nomes inseridos pelo usuário
 def validate_name(name):
     for product in products:
         if name in product["name"]:
             raise ValueError("Erro: Este nome já foi atribuido a um produto.")
     if name == "" or name.isspace():
         raise ValueError("Erro: O nome não pode ser vazio.")
-    
+
+# Validar preços inseridos pelo usuário
 def validate_price(price):
     if (price <= 0.00):
         raise ValueError("Erro: O preço deve ser maior que zero.")
-    
+
+# Salvar os produtos da lista para o arquivo passado como parametro
 def save_to_file(filePath):
-    # Salva os produtos da lista para o arquivo
     try:
         with open(filePath, "w") as file:
             for product in products:
@@ -84,8 +91,8 @@ def save_to_file(filePath):
     except Exception as e:
         print(f"Erro ao salvar os dados: {str(e)}")
     
+# Carregar os produtos do arquivo passado como parametro para a lista
 def load_from_file(filePath):
-    # Carrega os produtos do arquivo para a lista
     try: 
         with open(filePath, "r") as file:
             for line in file:
