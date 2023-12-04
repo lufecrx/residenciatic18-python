@@ -157,6 +157,9 @@ class ListaNomes(AnaliseDados):
         # Mostrar o maior elemento da lista
         max_value = max(self.__lista)
         return max_value
+    
+    def listarEmOrdem(self):
+        return sorted(self.__lista)
 
     def __str__(self):
         # Retornar a lista como uma string
@@ -291,13 +294,37 @@ def main():
     listaListas = [nomes, datas, salarios, idades]
 
     for lista in listaListas:
-        print("Entrada de Dados")
+        print("Entrada de Dados:", lista.__class__.__name__)
         lista.entradaDeDados()
         print("Resultados")
         print("Mediana: ", lista.mostraMediana())
         print("Menor valor: ", lista.mostraMenor())        
         print("Maior valor: ", lista.mostraMaior())
         print("_______________________")
+
+    # Iterador zip para retornar os nomes e salários correspondentes
+    for nome, salario in zip(nomes.listarEmOrdem(), salarios.listarEmOrdem( )):
+        print(f"Nome: {nome}, Salário: {salario}")
+        
+    # Iterador map para calcular o custo da folha de pagamento com salários reajustados
+    salarios_reajustados = map(lambda x: x * 1.1, salarios)
+
+    # Mostrar os salários reajustados
+    print("Salários reajustados em 10%:")
+    for salario_reajustado in salarios_reajustados:
+        print(salario_reajustado)
+    
+    # Iterador filter para retornar as datas antigas de 2019
+    datas_antigas = filter(lambda data: data < Data(1, 1, 2019), datas.listarEmOrdem())
+
+    # Modificar as datas
+    for data_antiga in datas_antigas:
+        data_antiga.dia = 1
+
+    # Mostrar as datas modificadas
+    print("Datas modificadas (antigas):")
+    for data_modificada in datas.listarEmOrdem():
+        print(data_modificada)
 
     print("Fim do teste!!!")
 
