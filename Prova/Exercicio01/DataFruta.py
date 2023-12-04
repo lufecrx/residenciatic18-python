@@ -53,6 +53,9 @@ class Data:
                 self.__ano == outraData.__ano
     
     def __lt__(self, outraData):
+        '''
+        Este método compara a data com outra e retorna se a data atual é menor que a outra
+        '''
         if self.__ano < outraData.__ano:
             return True
         elif self.__ano == outraData.__ano:
@@ -64,6 +67,9 @@ class Data:
         return False
     
     def __gt__(self, outraData):
+        '''
+        Este método compara a data com outra e retorna se a data atual é maior que a outra
+        '''
         if self.__ano > outraData.__ano:
             return True
         elif self.__ano == outraData.__ano:
@@ -108,6 +114,13 @@ class AnaliseDados(ABC):
     def mostraMaior(self):
         '''
         Este método retorna o maior elemento da lista
+        '''
+        pass
+
+    @abstractmethod
+    def listarEmOrdem(self):
+        '''
+        Este método ordena a lista e a retorna.
         '''
         pass
 
@@ -190,6 +203,9 @@ class ListaDatas(AnaliseDados):
         max_data = max(self.__lista, key=lambda data: data)
         return str(max_data)
     
+    def listarEmOrdem(self):
+        return sorted(self.__lista)
+    
     def __str__(self):
         # Retornar a lista como uma string
         return str(self.__lista)
@@ -223,6 +239,9 @@ class ListaSalarios(AnaliseDados):
     def mostraMaior(self): 
         max_value = max(self.__lista)
         return max_value
+    
+    def listarEmOrdem(self):
+        return sorted(self.__lista)
 
     def __str__(self):
         return str(self.__lista)
@@ -256,6 +275,9 @@ class ListaIdades(AnaliseDados):
     def mostraMaior(self):
         max_value = max(self.__lista)
         return max_value
+
+    def listarEmOrdem(self):
+        return sorted(self.__lista)
     
     def __str__(self):
         return str(self.__lista)
