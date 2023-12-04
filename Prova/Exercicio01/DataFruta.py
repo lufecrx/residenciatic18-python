@@ -285,48 +285,58 @@ class ListaIdades(AnaliseDados):
     def __str__(self):
         return str(self.__lista)
 
+def exibir_menu():
+    print("\nMenu de Opções:")
+    print("1. Incluir nome na lista de nomes")
+    print("2. Incluir data na lista de datas")
+    print("3. Incluir salário na lista de salários")
+    print("4. Incluir idade na lista de idades")
+    print("5. Percorrer as listas de nomes e salários")
+    print("6. Calcular o valor da folha com um reajuste de 10%")
+    print("7. Modificar o dia das datas anteriores a 2019")
+    print("8. Sair")
+
 def main():
     nomes = ListaNomes()
     datas = ListaDatas()
     salarios = ListaSalarios()
     idades = ListaIdades()
 
-    listaListas = [nomes, datas, salarios, idades]
+    while True:
+        exibir_menu()
+        opcao = input("Escolha uma opção (1-8): ")
 
-    for lista in listaListas:
-        print("Entrada de Dados:", lista.__class__.__name__)
-        lista.entradaDeDados()
-        print("Resultados")
-        print("Mediana: ", lista.mostraMediana())
-        print("Menor valor: ", lista.mostraMenor())        
-        print("Maior valor: ", lista.mostraMaior())
-        print("_______________________")
+        if opcao == '1':
+            nomes.entradaDeDados()
+        elif opcao == '2':
+            datas.entradaDeDados()
+        elif opcao == '3':
+            salarios.entradaDeDados()
+        elif opcao == '4':
+            idades.entradaDeDados()
+        elif opcao == '5':
+            for nome, salario in zip(nomes.listarEmOrdem(), salarios.listarEmOrdem()):
+                print(f"Nome: {nome}, Salário: {salario}")
+        elif opcao == '6':
+            salarios_reajustados = map(lambda x: x * 1.1, salarios.listarEmOrdem())
+            print("Salários reajustados em 10%:")
+            for salario_reajustado in salarios_reajustados:
+                print(salario_reajustado)
+        elif opcao == '7':
+            datas_antigas = filter(lambda data: data < Data(1, 1, 2019), datas.listarEmOrdem())
+            for data_antiga in datas_antigas:
+                data_antiga.dia = 1
+            print("Datas modificadas (antigas):")
+            for data_modificada in datas.listarEmOrdem():
+                print(data_modificada)
+        elif opcao == '8':
+            print("Encerrando o programa.")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
 
-    # Iterador zip para retornar os nomes e salários correspondentes
-    for nome, salario in zip(nomes.listarEmOrdem(), salarios.listarEmOrdem( )):
-        print(f"Nome: {nome}, Salário: {salario}")
-        
-    # Iterador map para calcular o custo da folha de pagamento com salários reajustados
-    salarios_reajustados = map(lambda x: x * 1.1, salarios)
-
-    # Mostrar os salários reajustados
-    print("Salários reajustados em 10%:")
-    for salario_reajustado in salarios_reajustados:
-        print(salario_reajustado)
-    
-    # Iterador filter para retornar as datas antigas de 2019
-    datas_antigas = filter(lambda data: data < Data(1, 1, 2019), datas.listarEmOrdem())
-
-    # Modificar as datas
-    for data_antiga in datas_antigas:
-        data_antiga.dia = 1
-
-    # Mostrar as datas modificadas
-    print("Datas modificadas (antigas):")
-    for data_modificada in datas.listarEmOrdem():
-        print(data_modificada)
-
-    print("Fim do teste!!!")
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     main()
